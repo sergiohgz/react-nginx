@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-nginx-app
+  namespace: app-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-nginx-ui
+  template:
+    metadata:
+      labels:
+        app: react-nginx-ui
+    spec:
+      containers:
+      - name: react-nginx-ui
+        image: react-nginx-ui:0.0.0
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: 20m
+            memory: 32Mi
+        ports:
+        - containerPort: 3000
